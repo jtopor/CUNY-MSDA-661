@@ -2,13 +2,13 @@
 title: "DATA 661 Spring 2017 Project Proposal"
 author: "James Topor"
 output:
-  pdf_document:
-    toc: yes
   html_document:
     depth: 3
     highlight: tango
     number_sections: no
     theme: spacelab
+    toc: yes
+  pdf_document:
     toc: yes
 ---
 
@@ -76,14 +76,10 @@ _____
 
 3. http://spectrum.ieee.org/computing/software/finding-one-face-in-a-million
 
-4. Dong Yi, Zhen Lei, Shengcai Liao and Stan Z. Li. "Learning Face Representation from Scratch"", arXiv:1411.7923v1 [cs.CV], 2014.
-
-- (https://pdfs.semanticscholar.org/853b/d61bc48a431b9b1c7cab10c603830c488e39.pdf)
+4. Dong Yi, Zhen Lei, Shengcai Liao and Stan Z. Li. "Learning Face Representation from Scratch"", arXiv:1411.7923v1 [cs.CV], 2014. (https://pdfs.semanticscholar.org/853b/d61bc48a431b9b1c7cab10c603830c488e39.pdf)
 
 5. http://www.cbsr.ia.ac.cn/english/index.asp
 
 6. Garcia, Christophe, and Delakis, Manolis. "Convolutional face finder: A neural architecture for fast and robust face detection", IEEE Transactions on Pattern Analysis and Machine Intelligence 26(11):1408 - 1423 · December 2004
 
-7. Duffner, Steffan. "Face Image Analysis With Convolutional Neural Networks", Doctoral Dissertation, Albert Ludwigs University of Freiburg, Breisgau, Germany, 2007
-
-- https://pdfs.semanticscholar.org/dbb7/f37fb9b41d1aa862aaf2d2e721a470fd2c57.pdf
+7. Duffner, Steffan. "Face Image Analysis With Convolutional Neural Networks", Doctoral Dissertation, Albert Ludwigs University of Freiburg, Breisgau, Germany, 2007 (https://pdfs.semanticscholar.org/dbb7/f37fb9b41d1aa862aaf2d2e721a470fd2c57.pdf)
