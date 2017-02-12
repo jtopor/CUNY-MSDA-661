@@ -1,0 +1,89 @@
+---
+title: "DATA 661 Spring 2017 Project Proposal"
+author: "James Topor"
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    depth: 3
+    highlight: tango
+    number_sections: no
+    theme: spacelab
+    toc: yes
+---
+
+_____
+
+# Introduction
+
+Facial recognition technology is becoming a widely used tool for the identification of individuals for many different purposes, including law enforcement, security and social media auto-tagging of images. Neural networks have played a crucial role in enabling the practical application of facial recognition technology and will continue to do so as interest in the use of facial recognition technology expands. In particular, convolutional neural networks ('CNN's') have been shown to be effective when applied to facial recognition tasks. However, there appears to be little consensus regarding how the architecture of a CNN should be configured for optimal facial recognition performance. Furthermore, CNN models can potentially 'overfit' the data used for their development, thereby rendering their more general usage rather ineffective. This state of affairs offers ample opportunity for those interested in exploring both the methods typically used for constructing CNN's and how CNN's can effectively be applied to facial recognition tasks.
+
+_____
+
+# Problem Formulation & Objectives
+
+The purpose of this project will be to use Google's TensorFlow API to design, implement and evaluate a facial recognition system using a convolutional neural network (CNN) architecture. The system will be trained and evaluated using publicly available data set(s).  The goal of the project will be to gain experience in implementing convolutional neural networks using Tensorflow and to gain insight into how well convolutional neural networks implemented via Tensorflow perform when applied to a facial recognition problem. Models will be compared against one another via performance metrics such as accuracy, precision, sensitivity/recall, and Area Under the Curve (AUC).
+
+_____
+
+# Approach
+
+The project will be implemented using Python, iPython Notebook, Google's Tensorflow API, and the __Labeled Faces in the Wild__ ('LFW') publicly available database of facial images [1]. A baseline CNN architecture will be constructed, and parameters such as number of layers, learning rate, dropout percentage, and filter sizes will then be adjusted as necessary in an attempt to improve model performance. As such, the modeling process will proceed as follows:
+
+1. Model Build
+
+2. Model Training/Testing/Evaluation
+
+3. Model Revision
+
+4. Return to Model Training/Testing/Evaluation as needed
+
+The modeling process will come to a halt once it is determined that no further meaningful performance gains can be achieved relative to the performance constraints of the hardware and software used.  Once halted, the performance of each of the iterative models will be summarized and discussed. 
+
+Furthermore, if feasible within the allotted time, the final model will be applied to the __CASIA WebFace__ publicly available database of facial images [2] in an attempt to assess the effectiveness of the final model when applied to novel data. Such a test would allow us to gauge whether the CNN model derived from the LFW data set suffers from overfitting. According to a recent article in IEEE Spectrum [3], such overfitting appears to have been a widespread problem for virtually all widely used facial recognition algorithms that were developed using the LFW dataset, including Google's FaceNet.
+
+_____
+
+#### Neural Network Architecture
+
+The architecture for the CNN will be similar to the approach described by Yi, et al. in 2014 [4]. The exact architecture to be used will be adjusted depending on any constraints imposed by the software and/or hardware used. For example, while Yi et al. propose an 11-layer CNN, a scaled-down version of their model might prove to be more practical for demonstration purposes. 
+
+_____
+
+#### Data to be Used
+
+The University of Massachusetts has curated a database of face photographs that can be used by researchers for exploring the challenges of face recognition. This database, known as "__Labeled Faces in the Wild__" ('LFW') [1], contains 13,233 images of faces collected from the web. Each face has been labeled with the name of the person pictured. In total, there are 5,749 individuals represented, with 1,680 of the people pictured having two or more distinct photos within the data set. This data set will serve as the basis of training and evaluation of the prospective convolutional neural network. The data set will be divided into training/testing/evaluation subsets according to the guidelines indicated on the LFW website. 
+
+Time permitting, the __CASIA WebFace Database__ [2] will be used as the basis of further model performance analysis. The CASIA database, which is available through Beijing's __Center for Biometrics and Security Research__ [5], contains 494,414 images of 10,575 distinct subjects. 
+
+_____
+
+# Relevant Journal Papers
+
+Yi et al. [4] not only generate a large scale (and now publicly available) set of nearly 500,000 facial images [2], but also implement an 11-layer CNN using ReLU neurons and small filters to achieve facial recognition accuracy exceeding that of FaceBook's "DeepFace" system. Of particular interest for this project is the approach they use for constructing a high-performance CNN for facial recognition. While their 11-layer CNN might prove to be too demanding for our available hardware and software, their general approach to filter sizing, loss functions, and pooling will serve as the basis for the CNN we will construct.
+
+Garcia and Delakis [6] provide the basis for most research into the use of CNN's for facial recognition tasks. Their 2004 IEEE paper applies a 7-layer CNN which at the time outperformed most other facial recognition algorithms. As such, their work provides the researcher with a foundational level of background and insight as to why CNN's are effective for facial recognition. 
+
+Finally, Steffan Duffner's 2007 Dissertation [7] objectively evaluates Garcia and Delakis's approach while providing additional relevant background and insight as to why CNN's are effective for facial recognition.
+
+_____
+
+# References
+
+1. Labeled Faces in the Wild ('LFW') : http://vis-www.cs.umass.edu/lfw/index.html
+
+2. CASIA WebFace Database: http://www.cbsr.ia.ac.cn/english/CASIA-WebFace-Database.html
+
+3. http://spectrum.ieee.org/computing/software/finding-one-face-in-a-million
+
+4. Dong Yi, Zhen Lei, Shengcai Liao and Stan Z. Li. "Learning Face Representation from Scratch"", arXiv:1411.7923v1 [cs.CV], 2014.
+
+- (https://pdfs.semanticscholar.org/853b/d61bc48a431b9b1c7cab10c603830c488e39.pdf)
+
+5. http://www.cbsr.ia.ac.cn/english/index.asp
+
+6. Garcia, Christophe, and Delakis, Manolis. "Convolutional face finder: A neural architecture for fast and robust face detection", IEEE Transactions on Pattern Analysis and Machine Intelligence 26(11):1408 - 1423 · December 2004
+
+7. Duffner, Steffan. "Face Image Analysis With Convolutional Neural Networks", Doctoral Dissertation, Albert Ludwigs University of Freiburg, Breisgau, Germany, 2007
+
+- https://pdfs.semanticscholar.org/dbb7/f37fb9b41d1aa862aaf2d2e721a470fd2c57.pdf
