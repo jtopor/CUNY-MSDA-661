@@ -45,13 +45,9 @@ tf.logging.set_verbosity(tf.logging.INFO)
 def cnn_model_fn(features, labels, mode):
   """Model function for CNN."""
   # Input Layer
-
   input_layer = tf.convert_to_tensor(features)
 
-  # if comment out above then use:
-  # input_layer = features
-
-  # Convolutional Layer #1
+  # Convolutional Layers 1 + 2
   # Computes 32 features using a 5x5 filter with ReLU activation.
   # Padding is added to preserve width and height.
   # Input Tensor Shape: [batch_size, 64, 64, 3]
@@ -77,7 +73,7 @@ def cnn_model_fn(features, labels, mode):
   # Output Tensor Shape: [batch_size, 32, 32, 32]
   pool1 = tf.layers.max_pooling2d(inputs=conv2, pool_size=[2, 2], strides=2)
 
-  # Convolutional Layer #2
+  # Convolutional Layers 3 + 4
   # Computes 64 features using a 5x5 filter.
   # Padding is added to preserve width and height.
   # Input Tensor Shape: [batch_size, 32, 32, 32]
@@ -103,7 +99,7 @@ def cnn_model_fn(features, labels, mode):
   pool2 = tf.layers.max_pooling2d(inputs=conv4, pool_size=[2, 2], strides=2)
 
 
- # Convolutional Layer #2
+ # Convolutional Layers 5 + 6
   # Computes 64 features using a 5x5 filter.
   # Padding is added to preserve width and height.
   # Input Tensor Shape: [batch_size, 16, 16, 64]
@@ -122,7 +118,7 @@ def cnn_model_fn(features, labels, mode):
       padding="same",
       activation=tf.nn.relu)
 
-  # Pooling Layer #2
+  # Pooling Layer #3
   # Second max pooling layer with a 2x2 filter and stride of 2
   # Input Tensor Shape: [batch_size, 16, 16, 64]
   # Output Tensor Shape: [batch_size, 8, 8, 64]
@@ -138,10 +134,9 @@ def cnn_model_fn(features, labels, mode):
   # Output Tensor Shape: [batch_size, 1024]
   dense = tf.layers.dense(inputs=pool3_flat, units=1024, activation=tf.nn.relu)
 
-  # Add dropout operation; 0.6 probability that element will be kept
+  # Add dropout operation; 0.2 probability that element will be kept
   dropout = tf.layers.dropout(
       inputs=dense, rate=0.2, training=mode == learn.ModeKeys.TRAIN)
-      # inputs=dense, rate=0.4, training= True)
 
   # Logits layer
   # Input Tensor Shape: [batch_size, 1024]
@@ -159,7 +154,7 @@ def cnn_model_fn(features, labels, mode):
         onehot_labels=onehot_labels, logits=logits)
 
   # Configure the Training Op (for TRAIN mode)
-  
+  # Use Adagrad optimizer + initial learning rate of 0.001  
   if mode == learn.ModeKeys.TRAIN:
     train_op = tf.contrib.layers.optimize_loss(
         loss=loss,
