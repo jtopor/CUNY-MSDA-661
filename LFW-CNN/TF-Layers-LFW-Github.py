@@ -41,9 +41,15 @@ from tensorflow.contrib.learn.python.learn.estimators import model_fn as model_f
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
+# define global variable for number of classes
+n_classes = 0
+
 
 def cnn_model_fn(features, labels, mode):
   """Model function for CNN."""
+  
+  global n_classes
+  
   # Input Layer
   input_layer = tf.convert_to_tensor(features)
 
@@ -74,7 +80,7 @@ def cnn_model_fn(features, labels, mode):
   pool1 = tf.layers.max_pooling2d(inputs=conv2, pool_size=[2, 2], strides=2)
 
   # Convolutional Layers 3 + 4
-  # Computes 64 features using a 5x5 filter.
+  # Computes 64 features using a 3x3 filter.
   # Padding is added to preserve width and height.
   # Input Tensor Shape: [batch_size, 32, 32, 32]
   # Output Tensor Shape: [batch_size, 32, 32, 64]
@@ -100,7 +106,7 @@ def cnn_model_fn(features, labels, mode):
 
 
  # Convolutional Layers 5 + 6
-  # Computes 64 features using a 5x5 filter.
+  # Computes 64 features using a 3x3 filter.
   # Padding is added to preserve width and height.
   # Input Tensor Shape: [batch_size, 16, 16, 64]
   # Output Tensor Shape: [batch_size, 16, 16, 64]
@@ -141,7 +147,7 @@ def cnn_model_fn(features, labels, mode):
   # Logits layer
   # Input Tensor Shape: [batch_size, 1024]
   # Output Tensor Shape: [batch_size, 34]
-  logits = tf.layers.dense(inputs=dropout, units=34)
+  logits = tf.layers.dense(inputs=dropout, units= n_classes)
 
   loss = None
   train_op = None
@@ -149,7 +155,7 @@ def cnn_model_fn(features, labels, mode):
   # Calculate Loss (for both TRAIN and EVAL modes)
   # !!! Make sure depth variable is set properly relative to data !!!!
   if mode != learn.ModeKeys.INFER:
-    onehot_labels = tf.one_hot(indices=tf.cast(labels, tf.int32), depth=34)
+    onehot_labels = tf.one_hot(indices=tf.cast(labels, tf.int32), depth= n_classes)
     loss = tf.losses.softmax_cross_entropy(
         onehot_labels=onehot_labels, logits=logits)
 
@@ -180,6 +186,8 @@ def cnn_model_fn(features, labels, mode):
 
 def main(unused_argv):
 
+  global n_classes
+  
   # this produces centered 64x64 image from orig. 250x250
   lfw_people = fetch_lfw_people(min_faces_per_person=30, 
                                 slice_ = (slice(61,189),slice(61,189)),
