@@ -52,12 +52,11 @@ tf.logging.set_verbosity(tf.logging.INFO)
 
 def cnn_model_fn(features, labels, mode):
   """Model function for CNN."""
+  
   # Input Layer
   # Reshape X to 4-D tensor: [batch_size, width, height, channels]
   # CIFAR-10 images are 32x32 pixels, and have RGB color channel
-
   input_layer = tf.convert_to_tensor(features)
-
 
   # Convolutional Layer #1
   # Computes 32 features using a 5x5 filter with ReLU activation.
@@ -125,17 +124,16 @@ def cnn_model_fn(features, labels, mode):
   pool2_flat = tf.reshape(dropout2, [-1, 8 * 8 * 64])
 
   # Dense Layer
-  # Densely connected layer with 1024 neurons
+  # Densely connected layer with 512 neurons
   # Input Tensor Shape: [batch_size, 4096]
-  # Output Tensor Shape: [batch_size, 1024]
-  # dense = tf.layers.dense(inputs=pool2_flat, units=1024, activation=tf.nn.relu)
+  # Output Tensor Shape: [batch_size, 512]
   dense1 = tf.layers.dense(inputs=pool2_flat, units=512, activation=tf.nn.relu)
   
   # Add dropout operation; 0.6 probability that element will be kept
   dropout3 = tf.layers.dropout(
       inputs=dense1, rate=0.4, training=mode == learn.ModeKeys.TRAIN)
   
-  # second fully connected layer = use 128 features
+  # second fully connected layer = use 256 features
   dense2 = tf.layers.dense(inputs=dropout3, units=256, activation=tf.nn.relu)
   
    # Add dropout operation; 0.6 probability that element will be kept
@@ -143,7 +141,7 @@ def cnn_model_fn(features, labels, mode):
       inputs=dense2, rate=0.4, training=mode == learn.ModeKeys.TRAIN)
 
   # Logits layer
-  # Input Tensor Shape: [batch_size, 1024]
+  # Input Tensor Shape: [batch_size, 256]
   # Output Tensor Shape: [batch_size, 10]
   logits = tf.layers.dense(inputs=dropout4, units=10)
 
@@ -152,6 +150,7 @@ def cnn_model_fn(features, labels, mode):
 
   # Calculate Loss (for both TRAIN and EVAL modes)
   # !!! Make sure depth variable is set properly relative to data !!!!
+  # For CIFAR-10 there are 10 classes so depth = 10
   if mode != learn.ModeKeys.INFER:
     onehot_labels = tf.one_hot(indices=tf.cast(labels, tf.int32), depth=10)
     loss = tf.losses.softmax_cross_entropy(
@@ -172,9 +171,6 @@ def cnn_model_fn(features, labels, mode):
       "probabilities": tf.nn.softmax(
           logits, name="softmax_tensor")
   }
-
-#  t1 = model_fn_lib.ModelFnOps(mode= 'TRAIN', predictions=predictions, 
-#                               loss=loss, train_op=train_op)
 
   # Return a ModelFnOps object
   return model_fn_lib.ModelFnOps(

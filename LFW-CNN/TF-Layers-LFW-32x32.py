@@ -47,10 +47,12 @@ tf.logging.set_verbosity(tf.logging.INFO)
 # define global variable for number of classes
 n_classes = 0
 
+##############################################################
 
 def cnn_model_fn(features, labels, mode):
   """Model function for CNN."""
   
+  # instantiate global for number of possible classifications
   global n_classes
   
   # Input Layer
@@ -130,6 +132,7 @@ def cnn_model_fn(features, labels, mode):
   dropout3 = tf.layers.dropout(
       inputs=dense1, rate=0.4, training=mode == learn.ModeKeys.TRAIN)
 
+  # add a 2nd dense layer with 512 neurons
   dense2 = tf.layers.dense(inputs= dropout3, units=512, activation=tf.nn.relu)
   
   # Add dropout operation; 0.6 probability that element will be kept
@@ -137,8 +140,8 @@ def cnn_model_fn(features, labels, mode):
       inputs=dense2, rate=0.4, training=mode == learn.ModeKeys.TRAIN)
 
   # Logits layer
-  # Input Tensor Shape: [batch_size, 1024]
-  # Output Tensor Shape: [batch_size, 34]
+  # Input Tensor Shape: [batch_size, 512]
+  # Output Tensor Shape: [batch_size, n_classes]
   logits = tf.layers.dense(inputs=dropout4, units= n_classes)
 
   loss = None
@@ -183,8 +186,8 @@ def main(unused_argv):
   # resize = 0.5 produces centered 64x64 image from orig. 250x250
   # when slice is set to (61,189)
   # resize = 0.25 produces centered 32x32 image from orig. 250x250
-  # NOTE: setting per_person = 14 yields 106 possible classifications
-  # 15 = 96 possible classifications
+  # NOTE: setting per_person = 14 => 106 possible classifications
+  # per_person = 15 => 96 possible classifications
   lfw_people = fetch_lfw_people(min_faces_per_person=14, 
                                 slice_ = (slice(61,189),slice(61,189)),
                                 resize=0.25, color = True)
@@ -262,7 +265,7 @@ def main(unused_argv):
   print(eval_results)
 
 ####################################
-  # Evaluate the model and print results
+  # Evaluate all test data and print results
   eval_results = lfw_classifier.evaluate(
     x=eval_data, y=eval_labels, metrics=metrics)
   print(eval_results)
