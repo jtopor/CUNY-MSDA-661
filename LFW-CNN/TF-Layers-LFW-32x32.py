@@ -196,9 +196,7 @@ def main(unused_argv):
   
   # get count of number of possible labels - need to use this as
   # number of units for dense layer in call to tf.layers.dense and
-  # for defining the one-hot matrix. Here the number of possible
-  # labels is 34. It will be different if you use a different subset
-  # of LFW.
+  # for defining the one-hot matrix.
   target_names = lfw_people.target_names
   n_classes = target_names.shape[0]
   
