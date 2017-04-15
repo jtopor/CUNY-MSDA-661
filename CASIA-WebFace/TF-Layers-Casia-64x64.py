@@ -20,7 +20,7 @@ Created on Fri April 3 12:05:24 2017
 # CASIA WebFace (CWF) data set as provided by Beijing's Center for Biometrics
 # and Security Research.
 #
-# LFW is comprised of more than 494,000 250x250 color (RGB) images of human faces.
+# CASIA WebFace is comprised of more than 494,000 250x250 color (RGB) images of human faces.
 # Here a pre-prepped subset of the CASIA data set is loaded via python's unpickle()
 # function. The python code is to pre-prep the CASIA data can be found here:
 #     
