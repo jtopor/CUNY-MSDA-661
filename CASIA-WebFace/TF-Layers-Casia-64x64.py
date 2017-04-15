@@ -21,8 +21,8 @@ Created on Fri April 3 12:05:24 2017
 # and Security Research.
 #
 # CASIA WebFace is comprised of more than 494,000 250x250 color (RGB) images of human faces.
-# Here a pre-prepped subset of the CASIA data set is loaded via python's unpickle()
-# function. The python code is to pre-prep the CASIA data can be found here:
+# Here a pre-prepped subset of the CASIA data set is loaded via python's pickle.load()
+# function. The python code used to pre-prep the CASIA data can be found here:
 #     
 # https://github.com/jtopor/CUNY-MSDA-661/blob/master/CASIA-WebFace/casia-TF-dataprepper.py
 #
