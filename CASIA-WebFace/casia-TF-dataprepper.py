@@ -44,7 +44,7 @@ for testing. If no training/testing split is desired prior to loading the data
 set into your Tensorflow application, set test_size = 0.0.
 
 The resulting training/testing arrays are then written to disk using python's
-pickle() function. Specifally, a dict object is created containing the images,
+pickle() function. Specifically, a dict object is created containing the images,
 labels, and number of classes for the data set(s). The resulting file(s) can
 then be easily loaded into your own Tensorflow application as follows:
     
